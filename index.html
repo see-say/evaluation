@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة تقييم أداء المعلم - مدرسة الابتكار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --secondary: #FF6B6B;
+            --accent: #FFD166;
+            --green-check: #06D6A0;
+            --red-cross: #EF476F;
+            --text-color: #2B2D42;
+            --bg-gradient: linear-gradient(135deg, #E0F7FA 0%, #FFF9C4 50%, #FCE4EC 100%);
+        }
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 950px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 4px solid #FFF;
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(120deg, #4834d4, #686de0);
+            color: white;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(104, 109, 224, 0.3);
+        }
+        .header h3 { margin: 4px 0; font-weight: 500; font-size: 1.1rem; opacity: 0.95; }
+        .header h1 {
+            margin: 15px 0 5px 0;
+            font-size: 1.9rem;
+            background: #FFD166;
+            color: #2C3E50;
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .section-card {
+            background: #F8F9FA;
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            border-right: 6px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .section-title {
+            font-size: 1.3rem;
+            color: #2C3E50;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .info-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+        .info-input {
+            flex-grow: 1;
+            border: 2px dashed #CBD5E1;
+            border-radius: 8px;
+            padding: 6px 12px;
+            background: white;
+            outline: none;
+            font-size: 1rem;
+        }
+        .instructions-box {
+            background: #FFF9E6;
+            border: 2px solid #FFE082;
+            border-radius: 16px;
+            padding: 18px 25px;
+            margin-bottom: 30px;
+        }
+        .symbol-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: white;
+        }
+        .symbol-check { background-color: var(--green-check); }
+        .symbol-cross { background-color: var(--red-cross); }
+        
+        .domain-block {
+            background: white;
+            border-radius: 18px;
+            border: 2px solid #E2E8F0;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+        }
+        .domain-header {
+            background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .domain-block:nth-child(2n) .domain-header { background: linear-gradient(90deg, #4E65FF, #92EFFD); }
+        .domain-block:nth-child(3n) .domain-header { background: linear-gradient(90deg, #11998e, #38ef7d); }
+        .domain-block:nth-child(4n) .domain-header { background: linear-gradient(90deg, #FC466B, #3F5EFB); }
+        .domain-block:nth-child(5n) .domain-header { background: linear-gradient(90deg, #FFE000, #799F0C); color: #333; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #EDF2F7;
+        }
+        th {
+            background-color: #F7FAFC;
+            color: #4A5568;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .indicator-col {
+            text-align: right;
+            width: 50%;
+            font-weight: 500;
+            padding-right: 20px;
+        }
+        .chk-col {
+            width: 12%;
+        }
+        .note-col {
+            width: 26%;
+        }
+        .note-input {
+            width: 100%;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            padding: 6px 10px;
+            outline: none;
+            background: #FAFAFA;
+            font-size: 0.9rem;
+        }
+        input[type="checkbox"] {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #CBD5E1;
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .chk-green:checked {
+            background-color: var(--green-check);
+            border-color: var(--green-check);
+        }
+        .chk-green:checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        .chk-red:checked {
+            background-color: var(--red-cross);
+            border-color: var(--red-cross);
+        }
+        .chk-red:checked::after {
+            content: '✗';
+            color: white;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        .evidence-box {
+            padding: 15px 20px;
+            background: #FAFAFA;
+            border-top: 1px dashed #E2E8F0;
+        }
+        .evidence-box label {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #718096;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .evidence-input {
+            width: 100%;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            outline: none;
+            background: #FFF;
+        }
+        .approval-card {
+            background: #F0F9FF;
+            border: 2px solid #BAE6FD;
+            border-radius: 18px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            z-index: 1000;
+        }
+        @media print {
+            body { background: none; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; width: 100%; max-width: 100%; }
+            .print-btn { display: none; }
+            .domain-block { break-inside: avoid; }
+            .info-input, .evidence-input, .note-input { border: none; border-bottom: 1px solid #000; border-radius: 0; background: transparent; }
+            input[type="checkbox"] { border: 1px solid #000; }
+        }
+    </style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">🖨️ طباعة الاستمارة</button>
+<div class="container">
+    <div class="header">
+        <h3>سلطنة عُمان</h3>
+        <h3>وزارة التعليم</h3>
+        <h3>المديرية العامة للتعليم بمحافظة شمال الباطنة</h3>
+        <h3>مدرسة الابتكار لصفوف (1–4)</h3>
+        <h1>استمارة تقييم أداء المعلم</h1>
+    </div>
+    
+    <div class="section-card">
+        <div class="section-title">📌 أولًا: بيانات المعلم</div>
+        <div class="info-grid">
+            <div class="info-field">
+                <label>اسم المعلم:</label>
+                <input type="text" class="info-input" placeholder="أدخل اسم المعلم الثلاثي...">
+            </div>
+            <div class="info-field">
+                <label>الرقم الوظيفي:</label>
+                <input type="text" class="info-input" placeholder="أدخل الرقم الوظيفي...">
+            </div>
+        </div>
+    </div>
+
+    <div class="instructions-box">
+        <div class="section-title" style="margin-bottom: 8px;">💡 ثانيًا: تعليمات التقييم</div>
+        <p style="margin: 5px 0 10px 0;">يتم تقييم كل مؤشر من خلال وضع علامة واحدة فقط في الخانة المناسبة:</p>
+        <div style="display: flex; gap: 20px; font-weight: 600; margin-bottom: 10px;">
+            <div><span class="symbol-badge symbol-check">✓</span> يدل على تحقق المؤشر.</div>
+            <div><span class="symbol-badge symbol-cross">✗</span> يدل على عدم تحقق المؤشر.</div>
+        </div>
+    </div>
+
+    <!-- 1. الانضباط -->
+    <div class="domain-block">
+        <div class="domain-header">1. الانضباط</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يلتزم بالحضور في الوقت المحدد</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يلتزم بحضور الطابور الصباحي</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">لا يتغيب إلا بعذر مقبول</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يبلغ الإدارة عند الاضطرار إلى الغياب</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يلتزم بمواعيد الحصص والمناوبات</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يلتزم بالأنظمة والتعليمات المدرسية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 2. التعاون -->
+    <div class="domain-block">
+        <div class="domain-header">2. التعاون</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يتعاون مع زملائه بصورة إيجابية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يشارك في الأعمال والفعاليات المدرسية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتبادل الخبرات والموارد مع الزملاء</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقدم الدعم والمساعدة للزملاء عند الحاجة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتعاون مع الإدارة واللجان المدرسية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 3. سرعة الإنجاز -->
+    <div class="domain-block">
+        <div class="domain-header">3. سرعة الإنجاز</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">ينجز الأعمال المطلوبة في الوقت المحدد</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يستجيب بسرعة للتكليفات</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يسلم الأعمال في مواعيدها</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يرتب أولويات العمل بكفاءة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتعامل بسرعة مع المتطلبات الطارئة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 4. الإنجاز -->
+    <div class="domain-block">
+        <div class="domain-header">4. الإنجاز</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يحقق المهام والأهداف المطلوبة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">ينفذ الأعمال بجودة ودقة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يحقق نتائج واضحة وملموسة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتابع الأعمال حتى اكتمالها</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يوثق إنجازاته وأعماله</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يظهر أثرًا إيجابيًا لعمله على الطلبة أو المدرسة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 5. الابتكار -->
+    <div class="domain-block">
+        <div class="domain-header">5. الابتكار</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يقدم أفكارًا جديدة لتطوير العمل</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يستخدم أساليب تعليمية مبتكرة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يوظف التقنية بطرق فعالة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يبتكر أنشطة ووسائل تعليمية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقدم حلولًا إبداعية للمشكلات</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 6. المبادرة -->
+    <div class="domain-block">
+        <div class="domain-header">6. المبادرة</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يبادر إلى تنفيذ الأعمال دون انتظار التوجيه المستمر</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقترح حلولًا للمشكلات قبل تفاقمها</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يبادر بالمشاركة في الفعاليات والأنشطة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقترح أفكارًا لتحسين بيئة العمل</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتحمل المسؤولية عند الحاجة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتابع ما بدأه حتى تحقيق النتيجة المطلوبة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 7. الشفافية -->
+    <div class="domain-block">
+        <div class="domain-header">7. الشفافية</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يتعامل بصدق ووضوح</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقدم المعلومات والبيانات بدقة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يوضح التحديات التي تواجه العمل</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتعامل بعدل وموضوعية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتقبل الملاحظات ويتعامل معها بإيجابية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 8. المبادرات المهنية -->
+    <div class="domain-block">
+        <div class="domain-header">8. المبادرات المهنية</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يشارك في المبادرات المدرسية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقدم مبادرات تعليمية أو تربوية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يشارك بفاعلية في البرامج والأنشطة المهنية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يدعم المبادرات التي تخدم الطلبة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يوثق المبادرات ونتائجها</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقيس أثر المبادرات على الطلبة أو المدرسة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 9. فاعلية برامج الإنماء المهني -->
+    <div class="domain-block">
+        <div class="domain-header">9. فاعلية برامج الإنماء المهني</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يلتزم بحضور برامج الإنماء المهني</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يشارك بفاعلية في الدورات والبرامج</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يطبق ما تعلمه في ممارساته التعليمية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يستفيد من الخبرات المكتسبة في تطوير أدائه</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">ينقل الخبرات المفيدة إلى زملائه</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يظهر أثرًا واضحًا للتدريب في أدائه</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 10. الالتزام بالأعمال المكلف بها -->
+    <div class="domain-block">
+        <div class="domain-header">10. الالتزام بالأعمال المكلف بها</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">ينفذ التكليفات في الوقت المحدد</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يلتزم بتعليمات التكليف</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">ينفذ الأعمال بجودة ودقة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتحمل مسؤولية المهام المسندة إليه</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتابع التكليف حتى إتمامه</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يقدم التقارير أو النتائج المطلوبة في موعدها</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- 11. المبادئ المهنية -->
+    <div class="domain-block">
+        <div class="domain-header">11. المبادئ المهنية</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="indicator-col">يلتزم بأخلاقيات مهنة التعليم</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتعامل مع الطلبة باحترام وعدالة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يحافظ على سرية المعلومات والبيانات</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يلتزم بالموضوعية والحياد في أداء عمله</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يحترم الزملاء والإدارة وجميع العاملين في المدرسة</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يتحمل مسؤولية قراراته وتصرفاته المهنية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يلتزم بالأنظمة واللوائح والتعليمات المنظمة للعمل</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يحافظ على المظهر والسلوك المهني المناسب</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يراعي حقوق الطلبة والفروق الفردية بينهم</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+                <tr><td class="indicator-col">يمثل المدرسة ومهنة التعليم بصورة إيجابية</td><td><input type="checkbox" class="chk-green"></td><td><input type="checkbox" class="chk-red"></td><td><input type="text" class="note-input" placeholder="ملاحظة..."></td></tr>
+            </tbody>
+        </table>
+        <div class="evidence-box">
+            <label>الأدلة والشواهد:</label>
+            <input type="text" class="evidence-input" placeholder="اكتب الأدلة والشواهد هنا...">
+        </div>
+    </div>
+
+    <!-- Approval Section -->
+    <div class="approval-card">
+        <div class="section-title">✍️ اعتماد النتيجة</div>
+        <p style="margin-bottom: 20px;">تمت عملية التقييم بالاستناد إلى المؤشرات والأدلة والشواهد المتاحة خلال فترة التقييم.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-weight: bold;">
+            <div>توقيع المعلم: .......................................</div>
+            <div>توقيع المقيّم / الإدارة: .......................................</div>
+        </div>
+        <div style="margin-top: 15px; font-weight: bold;">
+            التاريخ: ..... / ..... / 202...م
+        </div>
+    </div>
+</div>
+</body>
+</html>
